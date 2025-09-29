@@ -14,11 +14,11 @@ level09@SnowCrash:~$ cat token
 f4kmm6p|=�p�n��DB�Du{��
 ```
 
-Il semble avoir été encodé.
+Il semble avoir été encrypté.
 
 En décompilant le binaire via le site [dogbolt](https://dogbolt.org)
 
-On remarque qu'il y a beaucoup de vérifications sur des injections de code qu'on peut réaliser, par exemple à l'aide de LD_PRELOAD, et le programme interdit ces injections.
+On remarque qu'il y a beaucoup de vérifications sur des injections de code qu'on peut réaliser, par exemple à l'aide de **LD_PRELOAD**, et le programme interdit ces injections.
 
 La partie qui nous intéressera sera celle-ci, qui est la partie qui encode le token.
 ```c

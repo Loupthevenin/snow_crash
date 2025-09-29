@@ -15,9 +15,6 @@ Wireshark est l'un des logiciels pouvant ouvrir et analyser ce type de fichier.
 
 ```bash
 scp -P 4242 level02@192.168.XXX.XXX:/home/user/level02/level02.pcap /tmp/
-```
-
-```bash
 chmod +r /tmp/level02.pcap
 ```
 
@@ -25,7 +22,7 @@ Maintenant on peut ouvrir le fichier avec Wireshark.
 
 # Wireshark
 
-Dans Wireshark, on peut apercevoir plusieurs paquets, dont certains contenant du texte avec **'login'** et **'password'**.
+Dans Wireshark, on peut apercevoir plusieurs paquets, dont certains contenant du texte avec **login** et **password**.
 
 En analysant le stream TCP, on peut voir une suite de caractères ressemblant à un mot de passe.
 
@@ -37,4 +34,12 @@ A l'aide de la table ASCII, on trouve que :
 - 0D = Carriage Return
 - 7F = Delete
 
-En respectant les caractères de contrôle, on obtient le mot de passe : **ft_waNDReL0L**
+En respectant les caractères de contrôle, on obtient le mot de passe : **ft_waNDReL0L**.
+
+# Getflag
+
+On n'a plus qu'à récupérer le flag via l'utilisateur **flag02** avec ce mot de passe.
+
+```bash
+su -c getflag - flag02
+```

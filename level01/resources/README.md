@@ -1,6 +1,19 @@
 # Cherche le mot passe
 
-La commande `find / -user flag01 2>/dev/null` n'affiche rien cette fois-ci.
+Cette fois-ci, les commandes précédentes ne nous donnent rien d'intéressant.
+
+```bash
+level01@SnowCrash:~$ ls -la
+total 12
+dr-x------ 1 level01 level01  100 Mar  5  2016 .
+d--x--x--x 1 root    users    340 Aug 30  2015 ..
+-r-x------ 1 level01 level01  220 Apr  3  2012 .bash_logout
+-r-x------ 1 level01 level01 3518 Aug 30  2015 .bashrc
+-r-x------ 1 level01 level01  675 Apr  3  2012 .profile
+level01@SnowCrash:~$ find / -user "flag01" 2>/dev/null
+level01@SnowCrash:~$ find / -user "level01" 2>/dev/null | grep -v "^/proc/"
+/dev/pts/0
+```
 
 Il faut donc trouver autre chose.
 
@@ -12,7 +25,7 @@ cat /etc/passwd
 
 On aperçoit `flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash`.
 
-On a trouvé le hash du mot de passe de l'utilisateur **flag01**, mais il n'est pas utilisable en tant que tel.
+On a donc trouvé le hash du mot de passe de l'utilisateur **flag01**, mais il n'est pas utilisable en tant que tel.
 
 # John the Ripper
 
@@ -36,4 +49,16 @@ On peut voir le résultat :
 
 ```bash
 abcdefg          (?)
+```
+
+# Getflag
+
+On peut maintenant se connecter sur l'utilisateur **flag01** et récupérer le flag.
+
+```bash
+level01@SnowCrash:~$ su flag01
+Password: 
+Don't forget to launch getflag !
+flag01@SnowCrash:~$ getflag
+Check flag.Here is your token : f2av5il02puano7naaf6adaaf
 ```

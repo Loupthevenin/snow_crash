@@ -42,4 +42,4 @@ Ainsi, on peut injecter une commande en profitant de la syntaxe bash.
 
 `curl "http://localhost:4747/?x=%3Bgetflag"` (%3B = ;)
 
-donnera par substitution: `echo ;getflag 2>&1`
+donnera par substitution : `echo ;getflag 2>&1`

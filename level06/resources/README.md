@@ -6,7 +6,7 @@ total 12
 -rwxr-x---  1 flag06 level06  356 Mar  5  2016 level06.php
 ```
 
-Ici le fichier binaire n'est pas intéressant, est exécuté juste le fichier PHP avec les droits de **flag06**.
+Ici le fichier binaire n'est pas intéressant, est exécute juste le fichier PHP avec les droits de **flag06**.
 
 ```bash
 level06@SnowCrash:~$ cat level06.php 
@@ -46,13 +46,13 @@ Le script prend en argument un fichier, qu'il va lire puis remplace certaines pa
 
 Ici ce qui nous intéresse est le modifier **e** du regex de la fonction x, qui permet d'exécuter du code.
 
-Créons un fichier temporaire /tmp/t avec le contenu :
+Créons un fichier temporaire `/tmp/t` avec le contenu :
 ```bash
 [x ${`getflag`}]
 ```
 
 - `[x ...]` : délimite le motif reconnu par l'expression régulière.
-- ${\`getflag\`} : syntaxe PHP permettant d'exécuter `getflag` en shell via les backticks.
+- ``${`getflag`}`` : syntaxe PHP permettant d'exécuter `getflag` en shell via les backticks.
 
 ```bash
 echo "[x \${\`getflag\`}]" > /tmp/t

